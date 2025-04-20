@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
+import "./globals.scss";
+import { Header } from "@/components/organism/header";
+import { ScrollProvider } from "@/provider/ScrollProvider";
+import { Footer } from "@/components/organism/footer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,12 +27,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+    <html lang="en" className="">
+      <ScrollProvider>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-background `}
+        >
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </body>
+      </ScrollProvider>
     </html>
   );
 }

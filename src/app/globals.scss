@@ -1,0 +1,270 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --border: 0 0% 89.8%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+// body {
+//   scroll-behavior: smooth;
+// }
+
+.bracket {
+  position: relative;
+  padding: 0 2rem;
+}
+
+.bracket::before,
+.bracket::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 1.5rem;
+  height: 2.5rem;
+
+  border: 1px solid white;
+  transition: border 0.3s ease; /* Smooth transition for the border */
+}
+
+.bracket::before {
+  left: 0;
+  border-right: none;
+  transform: translateY(-50%);
+}
+
+.bracket::after {
+  right: 0;
+  border-left: none;
+  transform: translateY(-50%);
+}
+
+/* Hover effect to complete the bracket */
+
+.button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  vertical-align: middle;
+  text-decoration: none;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.button.learn-more {
+  width: 12rem;
+  height: auto;
+}
+
+.button.learn-more .circle {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: relative;
+  display: block;
+  margin: 0;
+  width: 3rem;
+  height: 3rem;
+  background: #282936;
+  border-radius: 1.625rem;
+}
+
+.button.learn-more .circle .icon {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  background: #fff;
+}
+
+.button.learn-more .circle .icon.arrow {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  left: 0.625rem;
+  width: 1.125rem;
+  height: 0.125rem;
+  background: none;
+}
+
+.button.learn-more .circle .icon.arrow::before {
+  position: absolute;
+  content: "";
+  top: -0.29rem;
+  right: 0.0625rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-top: 0.125rem solid #fff;
+  border-right: 0.125rem solid #fff;
+  transform: rotate(45deg);
+}
+
+.button.learn-more .button-text {
+  transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.75rem 0;
+  margin: 0 0 0 1.85rem;
+  color: #282936;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.button:hover .circle {
+  width: 100%;
+}
+
+.button:hover .circle .icon.arrow {
+  background: #fff;
+  transform: translate(1rem, 0);
+}
+
+.button:hover .button-text {
+  color: #fff;
+}
+
+.container {
+  height: 300vh;
+  width: 100vw;
+
+  position: relative;
+
+  .sticky {
+    position: sticky;
+
+    overflow: hidden;
+
+    top: 0;
+
+    height: 100vh;
+
+    .el {
+      width: 100%;
+      height: 100%;
+      top: 0;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .imageContainer {
+        position: relative;
+        width: 25vw;
+        height: 25vh;
+        img {
+          object-fit: cover;
+        }
+      }
+      &:nth-of-type(2) {
+        .imageContainer {
+          top: -30vh;
+          left: 5vw;
+          width: 35vw;
+          height: 30vh;
+        }
+      }
+      &:nth-of-type(3) {
+        .imageContainer {
+          top: -10vh;
+          left: -25vw;
+          width: 20vw;
+          height: 45vh;
+        }
+      }
+      &:nth-of-type(4) {
+        .imageContainer {
+          left: 27.5vw;
+          width: 25vw;
+          height: 25vh;
+        }
+      }
+      &:nth-of-type(5) {
+        .imageContainer {
+          top: 27.5vh;
+          left: 5vw;
+          width: 20vw;
+          height: 25vh;
+        }
+      }
+      &:nth-of-type(6) {
+        .imageContainer {
+          top: 27.5vh;
+          left: -22.5vw;
+          width: 30vw;
+          height: 25vh;
+        }
+      }
+      &:nth-of-type(7) {
+        .imageContainer {
+          top: 22.5vh;
+          left: 25vw;
+          width: 15vw;
+          height: 15vh;
+        }
+      }
+    }
+  }
+}

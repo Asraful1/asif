@@ -9,6 +9,8 @@ interface TherapyTypeProps {
   };
 }
 
+export const revalidate = 1500;
+
 export default async function page({ params: { slug } }: TherapyTypeProps) {
   if (!slug) {
     redirect("/projects");

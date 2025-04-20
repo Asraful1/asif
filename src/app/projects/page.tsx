@@ -2,6 +2,8 @@ import { ProjectsTemplate } from "@/components/template/projects";
 import { getCategories } from "@/sanity/lib/client";
 import { Suspense } from "react";
 
+export const revalidate = 1500;
+
 type Props = {
   searchParams: {
     page: string;

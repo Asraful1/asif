@@ -209,7 +209,14 @@ export const heroPostQuery = `
 export const aboutPageQuery = `*[_type == "about"][0] {
   _id,
   title,
-  content
+  content,
+  heroTitle,
+  heroImage {
+    ...,
+    "blurDataURL": asset->metadata.lqip,
+    "ImageColor": asset->metadata.palette.dominant.background,
+    alt
+  }
 }`;
 
 export const featuredPostsQuery = `

@@ -15,6 +15,7 @@ import { ThreeStepMethod } from "@/components/molecules/three-step-method";
 import { TestimonialCarousel } from "@/components/molecules/testimonial";
 import { ContactForm } from "@/components/molecules/contact-form";
 import { PortableText as PortableTextComponent } from "@portabletext/react";
+import { urlForImage } from "@/sanity/lib/image";
 
 const benefits = [
   {
@@ -48,7 +49,14 @@ const benefits = [
       "Continuous improvements and new features to keep your portfolio cutting-edge.",
   },
 ];
-function Hero() {
+function Hero({
+  heroTitle,
+  heroImage,
+}: {
+  heroTitle: string;
+  heroImage: SanityImage;
+}) {
+  const imageUrl = heroImage && urlForImage(heroImage).src;
   return (
     <motion.section
       id="home"
@@ -59,7 +67,7 @@ function Hero() {
     >
       <div className="absolute inset-0 z-0">
         <Image
-          src={logo}
+          src={imageUrl || logo}
           alt="Background"
           fill
           placeholder="blur"
@@ -70,7 +78,7 @@ function Hero() {
         <div className="absolute inset-0 bg-black/40" />
       </div>
       <div className="relative z-10 text-center space-y-12 text-white">
-        <p className="text-sm tracking-[0.2em]">3D Developer</p>
+        <p className="text-sm tracking-[0.2em]">{heroTitle}</p>
         <Link
           href={"/projects"}
           className="bracket inline-block cursor-pointer group transition-all duration-300 ease-in-out"
@@ -192,7 +200,7 @@ export function HomeTemplate({ posts, about }) {
   return (
     <div className="bg-[#111]">
       <AnimatePresence mode="wait">
-        <Hero />
+        <Hero heroTitle={about.heroTitle} heroImage={about.heroImage} />
         <About data={about} />
         <Demos posts={posts} />
         <Benefit />

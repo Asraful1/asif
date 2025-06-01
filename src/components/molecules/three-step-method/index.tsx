@@ -13,16 +13,16 @@ export function ThreeStepMethod() {
     offset: ["start start", "end end"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 4]);
-  const scale4 = useTransform(scrollYProgress, [0, 1], [1, 4]);
-  const scale5 = useTransform(scrollYProgress, [0, 1], [1, 5]);
-  const scale6 = useTransform(scrollYProgress, [0, 1], [1, 6]);
-  const scale7 = useTransform(scrollYProgress, [0, 1], [1, 7]);
-  const scale8 = useTransform(scrollYProgress, [0, 1], [1, 8]);
-  const scale9 = useTransform(scrollYProgress, [0, 1], [1, 9]);
-  const scale10 = useTransform(scrollYProgress, [0, 1], [1, 10]);
-  const scale11 = useTransform(scrollYProgress, [0, 1], [1, 11]);
-  const scale12 = useTransform(scrollYProgress, [0, 1], [1, 12]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.3]);
+  const scale4 = useTransform(scrollYProgress, [0, 1], [1, 1.4]);
+  const scale5 = useTransform(scrollYProgress, [0, 1], [1, 1.5]);
+  const scale6 = useTransform(scrollYProgress, [0, 1], [1, 1.6]);
+  const scale7 = useTransform(scrollYProgress, [0, 1], [1, 1.7]);
+  const scale8 = useTransform(scrollYProgress, [0, 1], [1, 1.8]);
+  const scale9 = useTransform(scrollYProgress, [0, 1], [1, 1.9]);
+  const scale10 = useTransform(scrollYProgress, [0, 1], [1, 2]);
+  const scale11 = useTransform(scrollYProgress, [0, 1], [1, 2.1]);
+  const scale12 = useTransform(scrollYProgress, [0, 1], [1, 2.2]);
 
   const scales = [
     scale,

@@ -52,7 +52,7 @@ export function ThreeStepMethod() {
           return (
             <motion.div key={index} style={{ scale }} className={"el"}>
               <div className={"imageContainer"}>
-                <Image src={src} fill alt="image" />
+                <Image src={src} fill alt="image" className="!object-contain" />
               </div>
             </motion.div>
           );

@@ -31,11 +31,11 @@ export function ParallaxProject({ title, mainImage }: ParallaxProjectProps) {
     <motion.div
       ref={ref}
       style={{ backgroundColor }}
-      className="relative h-[300px] md:h-[800px] overflow-hidden"
+      className="relative h-[300px] md:h-[600px] overflow-hidden"
     >
       <motion.div style={{ y }} className="absolute inset-0 w-full h-full">
         {imageUrl && (
-          <Image src={imageUrl} alt={title} fill className="object-cover" />
+          <Image src={imageUrl} alt={title} fill className="object-contain w-full h-full"  />
         )}
       </motion.div>
       <div className="absolute inset-0 bg-black/10 flex items-end p-6">

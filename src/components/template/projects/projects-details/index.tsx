@@ -69,7 +69,7 @@ export function ProjectsDetailsTemplate({ post }) {
                   src={urlForImage(image) || "/placeholder.svg"}
                   alt={image.alt || `Project image ${index + 1}`}
                   fill
-                  className="object-cover transition-transform duration-300 hover:scale-105"
+                  className="object-contain transition-transform duration-300 hover:scale-105"
                   placeholder={image.blurDataURL ? "blur" : "empty"}
                   blurDataURL={image.blurDataURL}
                 />

@@ -17,7 +17,20 @@ import { ContactForm } from "@/components/molecules/contact-form";
 import { PortableText as PortableTextComponent } from "@portabletext/react";
 import { urlForImage } from "@/sanity/lib/image";
 
-const benefits = [
+type PortableTextBlock = {
+  _type: string;
+  children: { _type: string; text: string }[];
+};
+
+type Testimonial = {
+  _key?: string;
+  name: string;
+  role: string;
+  company: string;
+  content: PortableTextBlock[];
+};
+
+const benefitsFallback = [
   {
     title: "Stunning Visuals",
     description:
@@ -49,6 +62,7 @@ const benefits = [
       "Continuous improvements and new features to keep your portfolio cutting-edge.",
   },
 ];
+
 function Hero({
   heroTitle,
   heroImage,
@@ -142,15 +156,23 @@ function Demos({ posts }) {
   );
 }
 
-function Benefit() {
+function Benefit({
+  benefits,
+  title = "BENEFITS",
+}: {
+  benefits?: { title: string; description: string }[];
+  title?: string;
+}) {
+  const benefitsData = benefits && benefits.length > 0 ? benefits : benefitsFallback;
+
   return (
     <section id="benefits" className="py-28 bg-[#111]">
       <div className="max-w-[1440px] mx-auto px-6">
         <h2 className="text-4xl font-bold tracking-tight text-center mb-16 text-white">
-          BENEFITS
+          {title}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {benefits.map((benefit, index) => (
+          {benefitsData.map((benefit, index) => (
             <BenefitCard key={index} {...benefit} />
           ))}
         </div>
@@ -159,11 +181,23 @@ function Benefit() {
   );
 }
 
-function ImageGallery() {
+/* eslint-disable @typescript-eslint/no-unused-vars */
+function ImageGallery({
+  title = "Design, Upload, Publish",
+  gallery,
+}: {
+  title?: string;
+  /**
+   * @todo Implement dynamic Sanity gallery display
+   */
+  gallery?: SanityImage[];
+}) {
+  /* eslint-enable @typescript-eslint/no-unused-vars */
+  // gallery prop is ready for future use with dynamic Sanity images
   return (
     <section id="gallery" className="py-28 bg-[#111]">
       <h2 className="text-4xl font-bold tracking-tight text-center mb-16 text-white">
-        Design, Upload, Publish
+        {title}
       </h2>
 
       <ThreeStepMethod />
@@ -171,24 +205,30 @@ function ImageGallery() {
   );
 }
 
-function Testimonial() {
+function Testimonial({
+  testimonials,
+  title = "What My Clients Say",
+}: {
+  testimonials?: Testimonial[];
+  title?: string;
+}) {
   return (
     <section id="testimonial" className="py-24 bg-[#111] min-h-[60vh]">
       <h2 className="text-4xl font-bold tracking-tight text-center mb-16 text-white">
-        What My Clients Say
+        {title}
       </h2>
 
-      <TestimonialCarousel />
+      <TestimonialCarousel testimonials={testimonials} />
     </section>
   );
 }
 
-function ContactMe() {
+function ContactMe({ title = "CONTACT ME" }: { title?: string }) {
   return (
     <section id="contact" className="py-28 bg-[#0a0a0a]">
       <div className="max-w-screen mx-auto px-6">
         <h2 className="text-4xl font-bold tracking-tight text-center mb-1 text-white">
-          CONTACT ME
+          {title}
         </h2>
         <ContactForm />
       </div>
@@ -203,10 +243,10 @@ export function HomeTemplate({ posts, about }) {
         <Hero heroTitle={about.heroTitle} heroImage={about.heroImage} />
         <About data={about} />
         <Demos posts={posts} />
-        <Benefit />
-        <ImageGallery />
-        <Testimonial />
-        <ContactMe />
+        <Benefit benefits={about.benefits} title={about.benefitsTitle || "BENEFITS"} />
+        <ImageGallery title={about.galleryTitle} gallery={about.gallery} />
+        <Testimonial testimonials={about.testimonials} title={about.testimonialTitle} />
+        <ContactMe title={about.contactTitle} />
       </AnimatePresence>
     </div>
   );

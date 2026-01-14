@@ -1,67 +1,104 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { PortableText as PortableTextComponent } from "@portabletext/react";
 
-interface Testimonial {
-  id: number;
-  name: string;
-  role: string;
-  company: string;
-  content: string;
-}
+type PortableTextBlock = {
+  _type: string;
+  children: { _type: string; text: string }[];
+};
 
-const testimonials: Testimonial[] = [
-  {
-    id: 1,
-    name: "Alex Johnson",
-    role: "Graphic Designer",
-    company: "CreativeCo",
-    content:
-      "YEX has transformed the way I showcase my work. The sleek design and intuitive interface make it a joy to use, both for me and my clients.",
-  },
-  {
-    id: 2,
-    name: "Samantha Lee",
-    role: "Photographer",
-    company: "Capture Studios",
-    content:
-      "As a photographer, image quality is everything. YEX not only maintains the integrity of my photos but presents them in a way that truly captivates viewers.",
-  },
-  {
-    id: 3,
-    name: "Michael Torres",
-    role: "UX Designer",
-    company: "InnovateUX",
-    content:
-      "The customization options in YEX are unparalleled. I can tailor my portfolio to match my personal brand perfectly, which has been crucial in landing new clients.",
-  },
-];
-
-export function TestimonialCarousel() {
+export function TestimonialCarousel({
+  testimonials,
+}: {
+  testimonials?: {
+    _key?: string;
+    name: string;
+    role: string;
+    company: string;
+    content: PortableTextBlock[];
+  }[];
+}) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const nextTestimonial = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-  };
+  const testimonialsData = testimonials && testimonials.length > 0 ? testimonials : [
+    {
+      _key: "1",
+      name: "Alex Johnson",
+      role: "Graphic Designer",
+      company: "CreativeCo",
+      content: [
+        {
+          _type: "block",
+          children: [
+            {
+              _type: "span",
+              text: "YEX has transformed the way I showcase my work. The sleek design and intuitive interface make it a joy to use, both for me and my clients.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      _key: "2",
+      name: "Samantha Lee",
+      role: "Photographer",
+      company: "Capture Studios",
+      content: [
+        {
+          _type: "block",
+          children: [
+            {
+              _type: "span",
+              text: "As a photographer, image quality is everything. YEX not only maintains the integrity of my photos but presents them in a way that truly captivates viewers.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      _key: "3",
+      name: "Michael Torres",
+      role: "UX Designer",
+      company: "InnovateUX",
+      content: [
+        {
+          _type: "block",
+          children: [
+            {
+              _type: "span",
+              text: "The customization options in YEX are unparalleled. I can tailor my portfolio to match my personal brand perfectly, which has been crucial in landing new clients.",
+            },
+          ],
+        },
+      ],
+    },
+  ];
 
-  const prevTestimonial = () => {
+  const currentTestimonial = testimonialsData[currentIndex];
+
+  const nextTestimonial = useCallback(() => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonialsData.length);
+  }, [testimonialsData.length]);
+
+  const prevTestimonial = useCallback(() => {
     setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length
+      (prevIndex) => (prevIndex - 1 + testimonialsData.length) % testimonialsData.length
     );
-  };
+  }, [testimonialsData.length]);
 
   useEffect(() => {
     const timer = setInterval(nextTestimonial, 5000);
     return () => clearInterval(timer);
-  }, [currentIndex]); // Depend on currentIndex instead of nextTestimonial
+  }, [currentIndex, nextTestimonial]);
 
   return (
     <div className="relative overflow-hidden max-w-[1440px] mx-auto px-6 py-24">
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
-          key={testimonials[currentIndex].id}
+          key={currentTestimonial._key || currentIndex}
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -100 }}
@@ -69,15 +106,12 @@ export function TestimonialCarousel() {
           className="absolute inset-0 flex flex-col items-center text-center px-6 py-12 text-white"
         >
           <blockquote className="text-xl md:text-2xl mb-6 max-w-2xl">
-            &apos;{testimonials[currentIndex].content}&apos;
+            <PortableTextComponent value={currentTestimonial.content} />
           </blockquote>
           <div className="flex flex-col items-center">
-            <p className="font-bold text-lg">
-              {testimonials[currentIndex].name}
-            </p>
+            <p className="font-bold text-lg">{currentTestimonial.name}</p>
             <p className="text-gray-400">
-              {testimonials[currentIndex].role},{" "}
-              {testimonials[currentIndex].company}
+              {currentTestimonial.role}, {currentTestimonial.company}
             </p>
           </div>
         </motion.div>

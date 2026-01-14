@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 export const aboutType = defineType({
   name: "about",
@@ -36,6 +36,104 @@ export const aboutType = defineType({
       name: "content",
       title: "Content",
       type: "blockContent",
+    }),
+    defineField({
+      name: "benefitsTitle",
+      title: "Benefits Title",
+      type: "string",
+      initialValue: "BENEFITS",
+    }),
+    defineField({
+      name: "benefits",
+      title: "Benefits",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({
+              name: "title",
+              title: "Title",
+              type: "string",
+            }),
+            defineField({
+              name: "description",
+              title: "Description",
+              type: "string",
+            }),
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: "galleryTitle",
+      title: "Gallery Title",
+      type: "string",
+      initialValue: "Design, Upload, Publish",
+    }),
+    defineField({
+      name: "gallery",
+      title: "Image Gallery",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "image",
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: "alt",
+              type: "string",
+              title: "Alternative text",
+            },
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: "testimonialTitle",
+      title: "Testimonial Title",
+      type: "string",
+      initialValue: "What My Clients Say",
+    }),
+    defineField({
+      name: "testimonials",
+      title: "Testimonials",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "object",
+          fields: [
+            defineField({
+              name: "name",
+              title: "Name",
+              type: "string",
+            }),
+            defineField({
+              name: "role",
+              title: "Role",
+              type: "string",
+            }),
+            defineField({
+              name: "company",
+              title: "Company",
+              type: "string",
+            }),
+            defineField({
+              name: "content",
+              title: "Content",
+              type: "blockContent",
+            }),
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: "contactTitle",
+      title: "Contact Title",
+      type: "string",
+      initialValue: "CONTACT ME",
     }),
   ],
   preview: {

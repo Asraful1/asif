@@ -80,7 +80,7 @@ export async function getAllPosts({
   limit?: number;
   pageIndex?: number;
   category?: string | null;
-}): Promise<any[]> {
+}): Promise<unknown[]> {
   if (client) {
     const queryToUse =
       category && category !== "All" ? allPostQueryWithCategory : allPostQuery;
@@ -104,7 +104,7 @@ export async function getAllPaginatedPosts({
   offset?: number;
   limit?: number;
   category?: string | null;
-}): Promise<{ posts: any[]; total: number }> {
+}): Promise<{ posts: unknown[]; total: number }> {
   if (!client) {
     throw new Error("Sanity client is not initialized");
   }
@@ -129,7 +129,7 @@ export async function getAllPaginatedPosts({
 
 export async function getPostBySlug(
   slug: string
-): Promise<any | Record<string, never>> {
+): Promise<unknown | Record<string, never>> {
   if (client) {
     return (await client.fetch(postBySlugQuery, { slug })) || {};
   }
@@ -144,7 +144,7 @@ export async function getFeaturedPosts({
   limit?: number;
   pageIndex?: number;
   category?: string | null;
-}): Promise<any[]> {
+}): Promise<unknown[]> {
   if (client) {
     const queryToUse =
       category && category !== "All"
@@ -152,7 +152,7 @@ export async function getFeaturedPosts({
         : featuredPostsQueryWithoutCategory;
 
     return (
-      (await client.fetch<any[]>(queryToUse, {
+      (await client.fetch<unknown[]>(queryToUse, {
         pageIndex,
         limit,
         category,

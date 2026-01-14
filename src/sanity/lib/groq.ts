@@ -216,7 +216,27 @@ export const aboutPageQuery = `*[_type == "about"][0] {
     "blurDataURL": asset->metadata.lqip,
     "ImageColor": asset->metadata.palette.dominant.background,
     alt
-  }
+  },
+  benefitsTitle,
+  benefits[] {
+    title,
+    description
+  },
+  galleryTitle,
+  gallery[] {
+    ...,
+    "blurDataURL": asset->metadata.lqip,
+    "ImageColor": asset->metadata.palette.dominant.background,
+    alt
+  },
+  testimonialTitle,
+  testimonials[] {
+    name,
+    role,
+    company,
+    content
+  },
+  contactTitle
 }`;
 
 export const featuredPostsQuery = `

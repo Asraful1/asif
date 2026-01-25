@@ -19,15 +19,15 @@ export function ProjectsTemplate({
 }) {
   const allCategories = [
     { title: "All", slug: { current: "All" } },
-    ...categories,
+    ...(categories || []).filter((category) => category?.slug?.current),
   ];
   console.log("allCategories", allCategories);
 
   const [activeCategory, setActiveCategory] = useState(
-    searchParams.category || "All"
+    searchParams.category || "All",
   );
   const [currentPage, setCurrentPage] = useState(
-    parseInt(searchParams.page || "1", 10)
+    parseInt(searchParams.page || "1", 10),
   );
   const [posts, setPosts] = useState([]);
   const [totalPosts, setTotalPosts] = useState(0);
@@ -60,13 +60,13 @@ export function ProjectsTemplate({
     window.history.pushState(
       {},
       "",
-      `?page=${pageNumber}&category=${activeCategory}`
+      `?page=${pageNumber}&category=${activeCategory}`,
     );
   };
 
   return (
     <div className="min-h-screen mx-auto px-6 flex flex-col py-28 bg-[#111]">
-      <section className="flex-grow w-full  py-8">
+      <section className="flex-grow w-full max-w-screen-2xl mx-auto py-8">
         <div className="flex flex-wrap justify-center gap-4 mb-8">
           {allCategories.map((category) => (
             <button
@@ -77,7 +77,7 @@ export function ProjectsTemplate({
                 window.history.pushState(
                   {},
                   "",
-                  `?page=1&category=${category.slug.current}`
+                  `?page=1&category=${category.slug.current}`,
                 );
               }}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${

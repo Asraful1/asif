@@ -11,7 +11,7 @@ export function Pagination({
   paginate,
   currentPage,
 }: PaginationProps) {
-  const pageNumbers = [];
+  const pageNumbers: number[] = [];
 
   for (let i = 1; i <= Math.ceil(totalProjects / projectsPerPage); i++) {
     pageNumbers.push(i);

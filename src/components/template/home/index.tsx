@@ -11,7 +11,7 @@ import { AnimatePresence } from "motion/react";
 import { motion } from "motion/react";
 import { ParallaxProject } from "@/components/molecules/parallax";
 import { BenefitCard } from "@/components/molecules/card/benefit-card";
-import { ThreeStepMethod } from "@/components/molecules/three-step-method";
+import { ParallelGallery } from "@/components/molecules/gallery/parallel-gallery";
 import { TestimonialCarousel } from "@/components/molecules/testimonial";
 import { ContactForm } from "@/components/molecules/contact-form";
 import { PortableText as PortableTextComponent } from "@portabletext/react";
@@ -163,7 +163,8 @@ function Benefit({
   benefits?: { title: string; description: string }[];
   title?: string;
 }) {
-  const benefitsData = benefits && benefits.length > 0 ? benefits : benefitsFallback;
+  const benefitsData =
+    benefits && benefits.length > 0 ? benefits : benefitsFallback;
 
   return (
     <section id="benefits" className="py-28 bg-[#111]">
@@ -200,7 +201,7 @@ function ImageGallery({
         {title}
       </h2>
 
-      <ThreeStepMethod />
+      <ParallelGallery images={gallery} />
     </section>
   );
 }
@@ -243,9 +244,15 @@ export function HomeTemplate({ posts, about }) {
         <Hero heroTitle={about.heroTitle} heroImage={about.heroImage} />
         <About data={about} />
         <Demos posts={posts} />
-        <Benefit benefits={about.benefits} title={about.benefitsTitle || "BENEFITS"} />
+        <Benefit
+          benefits={about.benefits}
+          title={about.benefitsTitle || "BENEFITS"}
+        />
         <ImageGallery title={about.galleryTitle} gallery={about.gallery} />
-        <Testimonial testimonials={about.testimonials} title={about.testimonialTitle} />
+        <Testimonial
+          testimonials={about.testimonials}
+          title={about.testimonialTitle}
+        />
         <ContactMe title={about.contactTitle} />
       </AnimatePresence>
     </div>

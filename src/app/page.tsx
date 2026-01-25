@@ -2,7 +2,7 @@ import { HomeTemplate } from "@/components/template/home";
 import { getAboutPage, getFeaturedPosts } from "@/sanity/lib/client";
 import { Suspense } from "react";
 
-export const revalidate = 1500;
+export const revalidate = 30;
 
 export default async function Home() {
   const [posts, about] = await Promise.all([

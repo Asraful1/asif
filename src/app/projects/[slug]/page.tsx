@@ -9,7 +9,7 @@ interface TherapyTypeProps {
   };
 }
 
-export const revalidate = 1500;
+export const revalidate = 30;
 
 export default async function page({ params: { slug } }: TherapyTypeProps) {
   if (!slug) {

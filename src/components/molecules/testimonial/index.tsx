@@ -7,6 +7,14 @@ import { PortableText as PortableTextComponent } from "@portabletext/react";
 import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/image";
 
+// Define flexible type for Sanity image
+interface SanityImageSource {
+  asset?: {
+    _ref?: string;
+  };
+  [key: string]: unknown;
+}
+
 type PortableTextBlock = {
   _type: string;
   children: { _type: string; text: string }[];
@@ -19,7 +27,7 @@ type Testimonial = {
   company: string;
   address?: string;
   rating?: number;
-  image?: any;
+  image?: SanityImageSource;
   content: PortableTextBlock[];
 };
 
@@ -56,10 +64,6 @@ export function TestimonialCarousel({
       ? testimonials
       : fallbackTestimonials;
 
-  const currentTestimonial = testimonialsData[currentIndex];
-
-  if (!currentTestimonial) return null;
-
   const nextTestimonial = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonialsData.length);
   }, [testimonialsData.length]);
@@ -69,6 +73,10 @@ export function TestimonialCarousel({
     const timer = setInterval(nextTestimonial, 6000);
     return () => clearInterval(timer);
   }, [currentIndex, nextTestimonial]);
+
+  const currentTestimonial = testimonialsData[currentIndex];
+
+  if (!currentTestimonial) return null;
 
   return (
     <div className="relative w-full max-w-[600px] mx-auto min-h-[500px] flex flex-col justify-center">

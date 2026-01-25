@@ -234,7 +234,15 @@ export const aboutPageQuery = `*[_type == "about"][0] {
     name,
     role,
     company,
-    content
+    content,
+    rating,
+    address,
+    image {
+      ...,
+      "blurDataURL": asset->metadata.lqip,
+      "ImageColor": asset->metadata.palette.dominant.background,
+      alt
+    }
   },
   contactTitle
 }`;

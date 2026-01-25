@@ -106,24 +106,45 @@ export const aboutType = defineType({
           type: "object",
           fields: [
             defineField({
-              name: "name",
-              title: "Name",
-              type: "string",
+              name: "image",
+              title: "Image",
+              type: "image",
+              options: {
+                hotspot: true,
+              },
             }),
             defineField({
-              name: "role",
-              title: "Role",
-              type: "string",
-            }),
-            defineField({
-              name: "company",
-              title: "Company",
-              type: "string",
+              name: "rating",
+              title: "Rating",
+              type: "number",
+              validation: (Rule) => Rule.min(1).max(5),
             }),
             defineField({
               name: "content",
-              title: "Content",
+              title: "Quote",
               type: "blockContent",
+            }),
+            defineField({
+              name: "company",
+              title: "Company / Author Name",
+              type: "string",
+            }),
+            defineField({
+              name: "address",
+              title: "Address / Role / Description",
+              type: "string",
+            }),
+            defineField({
+              name: "name",
+              title: "Legacy Name (Optional)",
+              type: "string",
+              hidden: true,
+            }),
+            defineField({
+              name: "role",
+              title: "Legacy Role (Optional)",
+              type: "string",
+              hidden: true,
             }),
           ],
         }),

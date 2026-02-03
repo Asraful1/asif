@@ -4,6 +4,8 @@ import "./globals.scss";
 import { Header } from "@/components/organism/header";
 import { ScrollProvider } from "@/provider/ScrollProvider";
 import { Footer } from "@/components/organism/footer";
+import { SocialSidebar } from "@/components/molecules/social-sidebar";
+import { getActiveSocialLinks } from "@/sanity/lib/client";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,11 +25,13 @@ export const metadata: Metadata = {
 
 export const revalidate = 30;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const socialData = await getActiveSocialLinks();
+  
   return (
     <html lang="en" className="">
       <ScrollProvider>
@@ -35,6 +39,7 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-background `}
         >
           <Header />
+          <SocialSidebar socialLinks={socialData?.socialLinks} />
           <main className="flex-1">{children}</main>
           <Footer />
         </body>

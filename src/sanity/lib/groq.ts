@@ -2,6 +2,21 @@ import { groq } from "next-sanity";
 
 export const getAll = groq`*[]`;
 
+export const activeSocialQuery = groq`
+  *[_type == "social" && _id == "socialLinks"][0] {
+    _id,
+    socialLinks[] {
+      platform,
+      url,
+      icon {
+        ...,
+        asset
+      },
+      order
+    }
+  }
+`;
+
 export const allPostQuery = `
  *[_type == "post" ] | order(publishedAt desc, _createdAt desc) [$pageIndex...$limit] {
     _id,

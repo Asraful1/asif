@@ -31,3 +31,6 @@ export const urlForImage = (source: SanityImageSource) => {
     height: height || 0,
   };
 };
+
+// Export image URL builder for flexible usage
+export const urlFor = (source: SanityImageSource) => imageBuilder.image(source);

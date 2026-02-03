@@ -19,6 +19,7 @@ import {
   getAll,
   paginatedPostQuery,
   postBySlugQuery,
+  activeSocialQuery,
 } from "./groq";
 import { createClient } from "next-sanity";
 
@@ -181,4 +182,11 @@ export async function getCategories() {
     return (await client.fetch(categories)) || [];
   }
   return [];
+}
+
+export async function getActiveSocialLinks() {
+  if (client) {
+    return (await client.fetch(activeSocialQuery)) || null;
+  }
+  return null;
 }

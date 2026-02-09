@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { PortableText as PortableTextComponent } from "@portabletext/react";
 import Image from "next/image";
 import { urlForImage } from "@/sanity/lib/image";
@@ -68,6 +68,12 @@ export function TestimonialCarousel({
     setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonialsData.length);
   }, [testimonialsData.length]);
 
+  const prevTestimonial = useCallback(() => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? testimonialsData.length - 1 : prevIndex - 1
+    );
+  }, [testimonialsData.length]);
+
   // Auto-advance
   useEffect(() => {
     const timer = setInterval(nextTestimonial, 6000);
@@ -79,7 +85,16 @@ export function TestimonialCarousel({
   if (!currentTestimonial) return null;
 
   return (
-    <div className="relative w-full max-w-[600px] mx-auto min-h-[500px] flex flex-col justify-center">
+    <div className="relative w-full max-w-[700px] mx-auto min-h-[500px] flex flex-col justify-center items-center">
+      {/* Left Navigation Button */}
+      <button
+        onClick={prevTestimonial}
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-[#1a1a1a] border border-white/10 text-white hover:bg-[#C1E08C] hover:text-black transition-all duration-300 shadow-lg"
+        aria-label="Previous testimonial"
+      >
+        <ChevronLeft className="w-6 h-6" />
+      </button>
+
       <AnimatePresence mode="wait">
         <motion.div
           key={currentTestimonial._key || currentIndex}
@@ -139,6 +154,15 @@ export function TestimonialCarousel({
           </div>
         </motion.div>
       </AnimatePresence>
+
+      {/* Right Navigation Button */}
+      <button
+        onClick={nextTestimonial}
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-3 rounded-full bg-[#1a1a1a] border border-white/10 text-white hover:bg-[#C1E08C] hover:text-black transition-all duration-300 shadow-lg"
+        aria-label="Next testimonial"
+      >
+        <ChevronRight className="w-6 h-6" />
+      </button>
 
       {/* Pagination Dots */}
       <div className="flex justify-center gap-3 mt-8">

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import emailjs from "@emailjs/browser";
 import { motion } from "motion/react";
 
 export function ContactForm() {
@@ -17,16 +16,25 @@ export function ContactForm() {
     setStatus("sending");
 
     try {
-      await emailjs.send(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
-        { name, email, message },
-        "YOUR_PUBLIC_KEY"
-      );
-      setStatus("sent");
-      setName("");
-      setEmail("");
-      setMessage("");
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setStatus("sent");
+        setName("");
+        setEmail("");
+        setMessage("");
+      } else {
+        console.error("Error sending email:", data.error);
+        setStatus("error");
+      }
     } catch (error) {
       console.error("Error sending email:", error);
       setStatus("error");

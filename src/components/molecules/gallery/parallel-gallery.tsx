@@ -46,7 +46,8 @@ function ParallaxSlide({
     damping: 50,
     stiffness: 400,
   });
-  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
+  // Reduced velocity factor range to slow down scroll effect
+  const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 1.5], {
     clamp: false,
   });
 
@@ -167,8 +168,9 @@ export function ParallelGallery({
         className,
       )}
     >
-      <ParallaxSlide images={robustRow1} baseVelocity={-2} />
-      <ParallaxSlide images={robustRow2} baseVelocity={2} />
+      {/* Reduced baseVelocity from -2/2 to -0.5/0.5 for slower auto-scroll */}
+      <ParallaxSlide images={robustRow1} baseVelocity={-0.5} />
+      <ParallaxSlide images={robustRow2} baseVelocity={0.5} />
     </div>
   );
 }
